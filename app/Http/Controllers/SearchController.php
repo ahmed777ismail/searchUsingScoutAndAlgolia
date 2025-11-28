@@ -11,7 +11,9 @@ class SearchController extends Controller
     {
         $query = $request->input("query");
         if ($query) {
-            $results = Post::where('title', 'like', "%$query%")->get();
+            $results = Post::where('title', 'like', "%$query%")->paginate(5);
+
+            $results = Post::search($query)->paginate(5);
         }
         return view('search', get_defined_vars());
     }

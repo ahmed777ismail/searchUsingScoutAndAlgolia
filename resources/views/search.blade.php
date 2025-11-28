@@ -12,6 +12,8 @@
                     <form action="{{ route('search') }}" method="get">
                         <x-text-input id="query" class="block mt-1 w-full" type="text" name="query"
                             value="{{ request('query') }}" placeholder="Search..." />
+
+
                         <x-primary-button class="mt-3">Search</x-primary-button>
                     </form>
 
@@ -20,10 +22,17 @@
                             @if (count($results) > 0)
                                 @foreach ($results as $result)
                                     <div>
-                                        <h4>{{ $result->title }}</h4>
-                                        <p>{{ $result->body }}</p>
+                                        <h4>{{ $result->title }}
+                                            <em class="text-red-600">
+                                                ({{ $result->views }})
+                                            </em>
+                                        </h4>
+                                        <p class="text-gray-600">{{ $result->body }}</p>
                                     </div>
                                 @endforeach
+                                <div class="mt-4">
+                                    {{ $results->appends(request()->query())->links() }}
+                                </div>
                             @else
                                 No results found
                             @endif

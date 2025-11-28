@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('body')->nullable();
             $table->string('category')->nullable();
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
